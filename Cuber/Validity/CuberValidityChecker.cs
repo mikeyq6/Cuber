@@ -18,7 +18,7 @@ namespace Cuber.Validity
 
         public void CheckCubeIsValid()
         {
-
+            //
         }
     }
 }
