@@ -20,6 +20,8 @@ namespace Cuber
             cube.DoMove(MoveType.Right, MoveDirection.Reverse);
             cube.DoMove(MoveType.Upper, MoveDirection.Forward);
             cube.DoMove(MoveType.Right, MoveDirection.Forward);
+            cube.DoMove(MoveType.Lower, MoveDirection.Forward);
+            cube.DoMove(MoveType.Lower, MoveDirection.Reverse);
             cube.DoMove(MoveType.Right, MoveDirection.Reverse);
             cube.DoMove(MoveType.Upper, MoveDirection.Reverse);
             cube.DoMove(MoveType.Right, MoveDirection.Forward);
