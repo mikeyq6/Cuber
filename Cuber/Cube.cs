@@ -87,6 +87,12 @@ namespace Cuber
                     else
                         LowerForward();
                     break;
+                case MoveType.Front:
+                    if (direction == MoveDirection.Reverse)
+                        FrontReverse();
+                    else
+                        FrontForward();
+                    break;
             }
 
             CubeChanged();
@@ -287,6 +293,54 @@ namespace Cuber
             _faces[FaceType.Left].SetBit(8, l2);
 
             _faces[FaceType.Bottom].RotateLeft();
+        }
+        private void FrontForward()
+        {
+            BitColour l0 = _faces[FaceType.Left].GetBit(2);
+            BitColour l1 = _faces[FaceType.Left].GetBit(5);
+            BitColour l2 = _faces[FaceType.Left].GetBit(8);
+
+            _faces[FaceType.Left].SetBit(2, _faces[FaceType.Bottom].GetBit(0));
+            _faces[FaceType.Left].SetBit(5, _faces[FaceType.Bottom].GetBit(1));
+            _faces[FaceType.Left].SetBit(8, _faces[FaceType.Bottom].GetBit(2));
+
+            _faces[FaceType.Bottom].SetBit(0, _faces[FaceType.Right].GetBit(6));
+            _faces[FaceType.Bottom].SetBit(1, _faces[FaceType.Right].GetBit(3));
+            _faces[FaceType.Bottom].SetBit(2, _faces[FaceType.Right].GetBit(0));
+
+            _faces[FaceType.Right].SetBit(0, _faces[FaceType.Top].GetBit(6));
+            _faces[FaceType.Right].SetBit(3, _faces[FaceType.Top].GetBit(7));
+            _faces[FaceType.Right].SetBit(6, _faces[FaceType.Top].GetBit(8));
+
+            _faces[FaceType.Top].SetBit(6, l2);
+            _faces[FaceType.Top].SetBit(7, l1);
+            _faces[FaceType.Top].SetBit(8, l0);
+
+            _faces[FaceType.Front].RotateRight();
+        }
+        private void FrontReverse()
+        {
+            BitColour l0 = _faces[FaceType.Left].GetBit(2);
+            BitColour l1 = _faces[FaceType.Left].GetBit(5);
+            BitColour l2 = _faces[FaceType.Left].GetBit(8);
+
+            _faces[FaceType.Left].SetBit(2, _faces[FaceType.Top].GetBit(8));
+            _faces[FaceType.Left].SetBit(5, _faces[FaceType.Top].GetBit(7));
+            _faces[FaceType.Left].SetBit(8, _faces[FaceType.Top].GetBit(6));
+
+            _faces[FaceType.Top].SetBit(6, _faces[FaceType.Right].GetBit(0));
+            _faces[FaceType.Top].SetBit(7, _faces[FaceType.Right].GetBit(3));
+            _faces[FaceType.Top].SetBit(8, _faces[FaceType.Right].GetBit(6));
+
+            _faces[FaceType.Right].SetBit(0, _faces[FaceType.Bottom].GetBit(2));
+            _faces[FaceType.Right].SetBit(3, _faces[FaceType.Bottom].GetBit(1));
+            _faces[FaceType.Right].SetBit(6, _faces[FaceType.Bottom].GetBit(0));
+
+            _faces[FaceType.Bottom].SetBit(0, l0);
+            _faces[FaceType.Bottom].SetBit(1, l1);
+            _faces[FaceType.Bottom].SetBit(2, l2);
+
+            _faces[FaceType.Front].RotateLeft();
         }
 
         #endregion
