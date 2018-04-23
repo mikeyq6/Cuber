@@ -93,11 +93,19 @@ namespace Cuber
                     else
                         FrontForward();
                     break;
+                case MoveType.Back:
+                    if (direction == MoveDirection.Reverse)
+                        BackReverse();
+                    else
+                        BackForward();
+                    break;
             }
 
             CubeChanged();
             //HasChanged = false;
         }
+
+        #region Moves
 
         private void LeftReverse()
         {
@@ -123,8 +131,6 @@ namespace Cuber
 
             _faces[FaceType.Left].RotateLeft();
         }
-
-        #region Moves
 
         private void LeftForward()
         {
@@ -341,6 +347,54 @@ namespace Cuber
             _faces[FaceType.Bottom].SetBit(2, l2);
 
             _faces[FaceType.Front].RotateLeft();
+        }
+        private void BackForward()
+        {
+            BitColour l0 = _faces[FaceType.Left].GetBit(0);
+            BitColour l1 = _faces[FaceType.Left].GetBit(3);
+            BitColour l2 = _faces[FaceType.Left].GetBit(6);
+
+            _faces[FaceType.Left].SetBit(0, _faces[FaceType.Top].GetBit(2));
+            _faces[FaceType.Left].SetBit(3, _faces[FaceType.Top].GetBit(1));
+            _faces[FaceType.Left].SetBit(6, _faces[FaceType.Top].GetBit(0));
+
+            _faces[FaceType.Top].SetBit(2, _faces[FaceType.Right].GetBit(8));
+            _faces[FaceType.Top].SetBit(1, _faces[FaceType.Right].GetBit(5));
+            _faces[FaceType.Top].SetBit(0, _faces[FaceType.Right].GetBit(2));
+
+            _faces[FaceType.Right].SetBit(8, _faces[FaceType.Bottom].GetBit(6));
+            _faces[FaceType.Right].SetBit(5, _faces[FaceType.Bottom].GetBit(7));
+            _faces[FaceType.Right].SetBit(2, _faces[FaceType.Bottom].GetBit(8));
+
+            _faces[FaceType.Bottom].SetBit(6, l0);
+            _faces[FaceType.Bottom].SetBit(7, l1);
+            _faces[FaceType.Bottom].SetBit(8, l2);
+
+            _faces[FaceType.Back].RotateRight();
+        }
+        private void BackReverse()
+        {
+            BitColour l0 = _faces[FaceType.Left].GetBit(0);
+            BitColour l1 = _faces[FaceType.Left].GetBit(3);
+            BitColour l2 = _faces[FaceType.Left].GetBit(6);
+
+            _faces[FaceType.Left].SetBit(0, _faces[FaceType.Bottom].GetBit(6));
+            _faces[FaceType.Left].SetBit(3, _faces[FaceType.Bottom].GetBit(7));
+            _faces[FaceType.Left].SetBit(6, _faces[FaceType.Bottom].GetBit(8));
+
+            _faces[FaceType.Bottom].SetBit(6, _faces[FaceType.Right].GetBit(8));
+            _faces[FaceType.Bottom].SetBit(7, _faces[FaceType.Right].GetBit(5));
+            _faces[FaceType.Bottom].SetBit(8, _faces[FaceType.Right].GetBit(2));
+
+            _faces[FaceType.Right].SetBit(8, _faces[FaceType.Top].GetBit(2));
+            _faces[FaceType.Right].SetBit(5, _faces[FaceType.Top].GetBit(1));
+            _faces[FaceType.Right].SetBit(2, _faces[FaceType.Top].GetBit(0));
+
+            _faces[FaceType.Top].SetBit(0, l2);
+            _faces[FaceType.Top].SetBit(1, l1);
+            _faces[FaceType.Top].SetBit(2, l0);
+
+            _faces[FaceType.Back].RotateLeft();
         }
 
         #endregion
