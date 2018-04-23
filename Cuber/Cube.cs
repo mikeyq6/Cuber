@@ -11,6 +11,7 @@ namespace Cuber
 
     public class Cube
     {
+        private const int SCRAMBLE_MOVES = 50;
 
         private Dictionary<FaceType, CubeFace> _faces = new Dictionary<FaceType, CubeFace>();
 
@@ -402,6 +403,18 @@ namespace Cuber
         public CubeFace GetFace(FaceType face)
         {
             return _faces[face];
+        }
+
+        public void ScrambleCube()
+        {
+            Random rand = new Random();
+
+            for(int i=0; i<SCRAMBLE_MOVES; i++)
+            {
+                MoveType move = (MoveType)rand.Next(5);
+                MoveDirection direction = (MoveDirection)rand.Next(1);
+                DoMove(move, direction);
+            }
         }
     }
 
